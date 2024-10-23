@@ -1,0 +1,4 @@
+[submodule "couchbase-rs"]
+	path = couchbase-rs
+	url = https://github.com/couchbaselabs/couchbase-rs
+    branch = nativex
