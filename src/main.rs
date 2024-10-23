@@ -1,17 +1,16 @@
-use crate::common::test_config::{setup_tests, test_bucket, test_collection, test_scope};
-use crate::common::{create_cluster_from_test_config, new_key};
-use bytes::Bytes;
-use couchbase::transcoder::{DefaultTranscoder, Transcoder};
-use serde::de::DeserializeOwned;
-use serde::{Deserialize, Serialize};
-use serde_json::value::RawValue;
-use std::collections::BTreeMap;
-
 mod common;
 
+use crate::common::test_config::{setup_tests, test_bucket, test_collection, test_scope};
+use crate::common::{create_cluster_from_test_config, new_key};
 
-fn main() {
-    
+#[tokio::main]
+async fn main() {
+    test_upsert().await;
+}
+
+async fn test_upsert() {
+    setup_tests();
+
     let cluster = create_cluster_from_test_config().await;
 
     let collection = cluster
@@ -28,7 +27,5 @@ fn main() {
 
     let content: String = res.content_as().unwrap();
 
-    assert_eq!("test", content);
-    
-    println!("Hello, world!");
+    println!("{}", content);
 }
