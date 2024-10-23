@@ -8,11 +8,14 @@ tasks:
   - name: Build the Java Project
     init: |
       git submodule init && git submodule update
+      rustup toolchain install nightly
+      rustup default nightly
       source ./setLocalEnv
       eval $(gp env -e)
     command: |
       gp await-port 8091
       cbsh -c "source ./dbSetup.nu; dbSetup $COUCHBASE_DEFAULT_BUCKET $COUCHBASE_DEFAULT_SCOPE $COUCHBASE_DEFAULT_COLLECTION"
+      cargo run
 
 # PreInstalled Couchbase and Rust Extension
 vscode:
