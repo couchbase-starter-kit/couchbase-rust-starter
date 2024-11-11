@@ -21,9 +21,9 @@ async fn test_upsert() {
 
     let key = new_key();
 
-    collection.upsert(&key, "test").await.unwrap();
+    collection.upsert(&key, "test", None).await.unwrap();
 
-    let res = collection.get(key).await.unwrap();
+    let res = collection.get(key, None).await.unwrap();
 
     let content: String = res.content_as().unwrap();
 
